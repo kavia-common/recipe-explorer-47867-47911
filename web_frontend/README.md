@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Explorer (Next.js)
+
+A modern, responsive recipe browser with search, filters, and detail views. Uses Next.js App Router and mock API routes under `/api`.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
+- Ocean Professional theme (primary: #2563EB, secondary/success: #F59E0B, error: #EF4444, background: #f9fafb, surface: #ffffff, text: #111827)
+- Home page with search, cuisine and max cook time filters
+- Responsive grid (1/2/3/4 columns across breakpoints)
+- Recipe details page `/recipes/[id]` with ingredients and steps
+- Mock API:
+  - `GET /api/recipes?q=&cuisine=&time=`
+  - `GET /api/recipes/:id`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
+- NEXT_PUBLIC_API_BASE (optional): If set, API calls will use this as base. If empty/undefined, falls back to relative `/api`.
+- NEXT_PUBLIC_FRONTEND_URL (optional): For future use in links/sharing.
 
-## Learn More
+No new env vars are required.
 
-To learn more about Next.js, take a look at the following resources:
+## Code Structure
+- `src/app/layout.tsx` – Shared layout with Navbar and Footer
+- `src/app/page.tsx` – Home page (search and grid)
+- `src/app/about/page.tsx` – About page
+- `src/app/recipes/[id]/page.tsx` – Recipe details route
+- `src/app/api/recipes` – API routes for list and details
+- `src/components` – UI components (Navbar, Footer, SearchBar, RecipeCard, RecipeGrid, RecipeDetails)
+- `src/hooks/useRecipes.ts` – Data fetching hook with loading/error states
+- `src/lib/mockData.ts` – Local mock recipe data and filters
+- `src/styles/theme.ts` – Theme tokens and API base helper
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- Works fully offline with mock data.
+- Styling uses Tailwind CSS v4 via `@tailwindcss/postcss`. No extra setup required.
